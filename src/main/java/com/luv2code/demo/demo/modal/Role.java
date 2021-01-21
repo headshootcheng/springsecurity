@@ -1,6 +1,6 @@
 package com.luv2code.demo.demo.modal;
 
-import com.luv2code.demo.demo.enumm.ERole;
+import com.luv2code.demo.demo.enums.ERole;
 
 import javax.persistence.*;
 

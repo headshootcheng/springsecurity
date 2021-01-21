@@ -1,6 +1,6 @@
 package com.luv2code.demo.demo.service.impl;
 
-import com.luv2code.demo.demo.enumm.ERole;
+import com.luv2code.demo.demo.enums.ERole;
 import com.luv2code.demo.demo.exception.ValidationErrorException;
 import com.luv2code.demo.demo.modal.Account;
 import com.luv2code.demo.demo.modal.Role;
@@ -14,7 +14,6 @@ import com.luv2code.demo.demo.util.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
