@@ -7,10 +7,12 @@ import com.luv2code.demo.demo.modal.Role;
 import com.luv2code.demo.demo.modal.request.LoginRequest;
 import com.luv2code.demo.demo.modal.request.SignupRequest;
 import com.luv2code.demo.demo.modal.response.JwtResponse;
+import com.luv2code.demo.demo.modal.response.UserInfo;
 import com.luv2code.demo.demo.repository.AccountRepository;
 import com.luv2code.demo.demo.service.AuthService;
 import com.luv2code.demo.demo.service.secure.UserDetailsImpl;
 import com.luv2code.demo.demo.util.JwtUtils;
+import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,11 +88,9 @@ public class AuthServiceImpl implements AuthService {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
+        UserInfo userInfo = new UserInfo(userDetails.getUsername(), userDetails.getEmail(), roles);
 
-        return new JwtResponse(jwt,
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles);
+        return new JwtResponse(jwt, userInfo);
     }
 
 

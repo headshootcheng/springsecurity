@@ -4,15 +4,11 @@ import java.util.List;
 
 public class JwtResponse {
     private String token;
-    private String username;
-    private String email;
-    private List<String> roles;
+    private UserInfo userInfo;
 
-    public JwtResponse(String token, String username, String email, List<String> roles) {
+    public JwtResponse(String token, UserInfo userInfo) {
         this.token = token;
-        this.username = username;
-        this.email = email;
-        this.roles = roles;
+        this.userInfo = userInfo;
     }
 
     public String getToken() {
@@ -23,37 +19,19 @@ public class JwtResponse {
         this.token = token;
     }
 
-    public String getUsername() {
-        return username;
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     @Override
     public String toString() {
         return "JwtResponse{" +
                 "token='" + token + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", roles=" + roles +
+                ", userInfo=" + userInfo +
                 '}';
     }
 }
