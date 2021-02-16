@@ -4,9 +4,14 @@ import com.luv2code.demo.demo.modals.responses.UserInfo;
 import com.luv2code.demo.demo.services.UserService;
 import com.luv2code.demo.demo.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 
 @RestController
 @RequestMapping("/api/user")
@@ -17,6 +22,27 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+
+    @GetMapping("/users")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public List<UserInfo> getAllUser(){
+        List<UserInfo> userInfoList  = userService.getUserList();
+        for (UserInfo userInfo : userInfoList) {
+            Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUserInfoById(userInfo.getId())).withRel("Self");
+            userInfo.add(selfLink);
+        }
+        return userInfoList;
+    }
+
+    @GetMapping("/user/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public UserInfo getUserInfoById(@PathVariable Long id){
+        UserInfo userInfo = userService.getUserInfoById(id);
+        Link allLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllUser()).withRel("All");
+        userInfo.add(allLink);
+        return userInfo;
+    }
 
     @GetMapping("/userInfo")
     public UserInfo getUserInfo(HttpServletRequest httpServletRequest){

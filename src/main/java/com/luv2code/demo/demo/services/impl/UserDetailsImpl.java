@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
+    private Long id;
+
     private String username;
 
     private String email;
@@ -23,7 +25,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private List<? extends GrantedAuthority> authorities = new ArrayList<>();
 
-    public UserDetailsImpl(String username, String email, String password, List<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String email, String password, List<? extends GrantedAuthority> authorities) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -33,6 +36,7 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl build (Account account){
         List<GrantedAuthority> authorities = account.getRoleList().stream().map(role -> new SimpleGrantedAuthority(role.getAuthority().name())).collect(Collectors.toList());
         return new UserDetailsImpl(
+                account.getUserId(),
                 account.getUsername(),
                 account.getEmail(),
                 account.getPassword(),
@@ -48,6 +52,11 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+
+    public Long getId() {
+        return id;
     }
 
     @Override

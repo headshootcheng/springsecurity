@@ -88,7 +88,7 @@ public class AuthServiceImpl implements AuthService {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-        UserInfo userInfo = new UserInfo(userDetails.getUsername(), userDetails.getEmail(), roles);
+        UserInfo userInfo = new UserInfo(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles);
 
         return new JwtResponse(jwt, userInfo);
     }

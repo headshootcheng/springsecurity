@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) // Enable the PreAuthorize for specific api end point
+@EnableGlobalMethodSecurity(prePostEnabled = true , securedEnabled = true) // Enable the PreAuthorize for specific api end point
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
