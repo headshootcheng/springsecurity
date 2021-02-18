@@ -6,6 +6,8 @@ import com.luv2code.demo.demo.modals.requests.SignUpRequest;
 import com.luv2code.demo.demo.modals.responses.AuthMessageResponse;
 import com.luv2code.demo.demo.modals.responses.JwtResponse;
 import com.luv2code.demo.demo.services.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "AuthController" , description = "Authentication API")
 public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -38,18 +40,20 @@ public class AuthController {
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "test";
-    }
-
-    @GetMapping("/preAuthorize")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public String preauthorize(){
-        return "preauthorize";
-    }
+//    @GetMapping("/test")
+//    public String test(){
+//        return "test";
+//    }
+//
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping("/preAuthorize")
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+//    public String preauthorize(){
+//        return "preauthorize";
+//    }
 
     @PostMapping("/signUp")
+    @Operation(summary = "Sign Up for User Account")
     public ResponseEntity<AuthMessageResponse> registerUser(@Valid @RequestBody SignUpRequest signupRequest, BindingResult theBindingResult){
         logger.info("SignUp Request: {}", signupRequest.toString());
         if(theBindingResult.hasErrors()){
@@ -60,6 +64,7 @@ public class AuthController {
     }
 
     @PostMapping("/signUpAdmin")
+    @Operation(summary = "Sign Up for Admin Account")
     public ResponseEntity<AuthMessageResponse> registerAdmin(@Valid @RequestBody SignUpRequest signupRequest, BindingResult theBindingResult){
         logger.info("SignUp Admin Request: {}" , signupRequest.toString());
         if(theBindingResult.hasErrors()) {
@@ -71,6 +76,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
+    @Operation(summary = "User Login")
     public ResponseEntity<JwtResponse> userLogin(@Valid @RequestBody LoginRequest loginRequest, BindingResult theBindingResult){
         logger.info("Login Request: {}" , loginRequest.toString());
         if(theBindingResult.hasErrors()){

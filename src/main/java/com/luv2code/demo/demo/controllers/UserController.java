@@ -3,8 +3,13 @@ package com.luv2code.demo.demo.controllers;
 import com.luv2code.demo.demo.modals.responses.UserInfo;
 import com.luv2code.demo.demo.services.UserService;
 import com.luv2code.demo.demo.utils.JwtUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +20,8 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
+@Tag(name = "UserController" , description = "the User API")
+public class UserController implements IStandardApi{
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -24,7 +30,8 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping("/users")
+    @GetMapping(value = "/users")
+    @Operation(summary = "Get all information of users")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public List<UserInfo> getAllUser(){
         List<UserInfo> userInfoList  = userService.getUserList();
@@ -36,6 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
+    @Operation(summary = "Get user By Id")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public UserInfo getUserInfoById(@PathVariable Long id){
         UserInfo userInfo = userService.getUserInfoById(id);
@@ -45,6 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/userInfo")
+    @Operation(summary = "Get user info based on token")
     public UserInfo getUserInfo(HttpServletRequest httpServletRequest){
         String token = jwtUtils.parseJwt(httpServletRequest);
         String username = jwtUtils.getUserNameFromJwtToken(token);

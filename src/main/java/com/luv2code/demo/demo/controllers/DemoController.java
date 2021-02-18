@@ -16,29 +16,29 @@ import java.util.Locale;
 /** Testing
  *
  */
-@RestController
-@RequestMapping("/api")
+//@RestController
+//@RequestMapping("/api")
 public class DemoController {
 
-    private static Logger logger = LoggerFactory.getLogger(DemoController.class);
-
-    @Autowired
-    private CoachConfig coachConfig;
-
-    @Autowired
-    private MessageSource messageSource;
-
-    @Value("${coach.name}")
-    private String coachName;
-
-    @GetMapping("/coach")
-    public String coach(){
-        logger.info("coach" + coachConfig.getName()+ "  " + coachConfig.getUserId());
-        return "hello: " + coachName;
-    }
-
-    @GetMapping("/hello")
-    public String hello(){
-        return messageSource.getMessage("hello.message", null, LocaleContextHolder.getLocale());
-    }
+//    private static Logger logger = LoggerFactory.getLogger(DemoController.class);
+//
+//    @Autowired
+//    private CoachConfig coachConfig;
+//
+//    @Autowired
+//    private MessageSource messageSource;
+//
+//    @Value("${coach.name}")
+//    private String coachName;
+//
+//    @GetMapping("/coach")
+//    public String coach(){
+//        logger.info("coach" + coachConfig.getName()+ "  " + coachConfig.getUserId());
+//        return "hello: " + coachName;
+//    }
+//
+//    @GetMapping("/hello")
+//    public String hello(){
+//        return messageSource.getMessage("hello.message", null, LocaleContextHolder.getLocale());
+//    }
 }
