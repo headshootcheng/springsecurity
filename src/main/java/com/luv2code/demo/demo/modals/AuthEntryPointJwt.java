@@ -1,6 +1,7 @@
 package com.luv2code.demo.demo.modals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.luv2code.demo.demo.exceptions.AuthorizationErrorException;
 import com.luv2code.demo.demo.modals.responses.AuthMessageResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         AuthMessageResponse authMessageResponse = new AuthMessageResponse(HttpServletResponse.SC_UNAUTHORIZED, "Failed to authorize", System.currentTimeMillis(), true);
         response.getOutputStream().println(objectMapper.writeValueAsString(authMessageResponse));
+//        throw new AuthorizationErrorException(authException.getMessage());
     }
 
 }

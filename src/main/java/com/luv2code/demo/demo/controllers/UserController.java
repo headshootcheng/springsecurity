@@ -31,7 +31,14 @@ public class UserController implements IStandardApi{
 
 
     @GetMapping(value = "/users")
-    @Operation(summary = "Get all information of users")
+    @Operation(
+        summary = "Get all information of users",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "400", description = "Bad Request")
+        }
+    )
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public List<UserInfo> getAllUser(){
         List<UserInfo> userInfoList  = userService.getUserList();
@@ -43,7 +50,14 @@ public class UserController implements IStandardApi{
     }
 
     @GetMapping("/user/{id}")
-    @Operation(summary = "Get user By Id")
+    @Operation(
+        summary = "Get user By Id",
+        responses = {
+                @ApiResponse(responseCode = "200", description = "Success"),
+                @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                @ApiResponse(responseCode = "400", description = "Bad Request")
+        }
+    )
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public UserInfo getUserInfoById(@PathVariable Long id){
         UserInfo userInfo = userService.getUserInfoById(id);
@@ -53,7 +67,14 @@ public class UserController implements IStandardApi{
     }
 
     @GetMapping("/userInfo")
-    @Operation(summary = "Get user info based on token")
+    @Operation(
+        summary = "Get user info based on token",
+        responses = {
+                @ApiResponse(responseCode = "200", description = "Success"),
+                @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                @ApiResponse(responseCode = "400", description = "Bad Request")
+        }
+    )
     public UserInfo getUserInfo(HttpServletRequest httpServletRequest){
         String token = jwtUtils.parseJwt(httpServletRequest);
         String username = jwtUtils.getUserNameFromJwtToken(token);

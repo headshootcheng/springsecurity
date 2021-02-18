@@ -7,6 +7,7 @@ import com.luv2code.demo.demo.modals.responses.AuthMessageResponse;
 import com.luv2code.demo.demo.modals.responses.JwtResponse;
 import com.luv2code.demo.demo.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +54,14 @@ public class AuthController {
 //    }
 
     @PostMapping("/signUp")
-    @Operation(summary = "Sign Up for User Account")
+    @Operation(
+        summary = "Sign Up for User Account",
+        responses = {
+                @ApiResponse(responseCode = "200", description = "Success"),
+                @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                @ApiResponse(responseCode = "400", description = "Bad Request")
+        }
+    )
     public ResponseEntity<AuthMessageResponse> registerUser(@Valid @RequestBody SignUpRequest signupRequest, BindingResult theBindingResult){
         logger.info("SignUp Request: {}", signupRequest.toString());
         if(theBindingResult.hasErrors()){
@@ -64,7 +72,14 @@ public class AuthController {
     }
 
     @PostMapping("/signUpAdmin")
-    @Operation(summary = "Sign Up for Admin Account")
+    @Operation(
+        summary = "Sign Up for Admin Account",
+        responses = {
+                @ApiResponse(responseCode = "200", description = "Success"),
+                @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                @ApiResponse(responseCode = "400", description = "Bad Request")
+        }
+    )
     public ResponseEntity<AuthMessageResponse> registerAdmin(@Valid @RequestBody SignUpRequest signupRequest, BindingResult theBindingResult){
         logger.info("SignUp Admin Request: {}" , signupRequest.toString());
         if(theBindingResult.hasErrors()) {
@@ -76,7 +91,14 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    @Operation(summary = "User Login")
+    @Operation(
+        summary = "User Login",
+        responses = {
+                @ApiResponse(responseCode = "200", description = "Success"),
+                @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                @ApiResponse(responseCode = "400", description = "Bad Request")
+        }
+    )
     public ResponseEntity<JwtResponse> userLogin(@Valid @RequestBody LoginRequest loginRequest, BindingResult theBindingResult){
         logger.info("Login Request: {}" , loginRequest.toString());
         if(theBindingResult.hasErrors()){
