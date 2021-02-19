@@ -75,6 +75,7 @@ public class UserController implements IStandardApi{
                 @ApiResponse(responseCode = "400", description = "Bad Request")
         }
     )
+
     public UserInfo getUserInfo(HttpServletRequest httpServletRequest){
         String token = jwtUtils.parseJwt(httpServletRequest);
         String username = jwtUtils.getUserNameFromJwtToken(token);

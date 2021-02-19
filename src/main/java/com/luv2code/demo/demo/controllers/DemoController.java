@@ -16,17 +16,17 @@ import java.util.Locale;
 /** Testing
  *
  */
-//@RestController
-//@RequestMapping("/api")
+@RestController
+@RequestMapping("/")
 public class DemoController {
 
-//    private static Logger logger = LoggerFactory.getLogger(DemoController.class);
-//
-//    @Autowired
-//    private CoachConfig coachConfig;
-//
-//    @Autowired
-//    private MessageSource messageSource;
+    private static Logger logger = LoggerFactory.getLogger(DemoController.class);
+
+    @Autowired
+    private CoachConfig coachConfig;
+
+    @Autowired
+    private MessageSource messageSource;
 //
 //    @Value("${coach.name}")
 //    private String coachName;
@@ -37,8 +37,8 @@ public class DemoController {
 //        return "hello: " + coachName;
 //    }
 //
-//    @GetMapping("/hello")
-//    public String hello(){
-//        return messageSource.getMessage("hello.message", null, LocaleContextHolder.getLocale());
-//    }
+    @GetMapping("/hello")
+    public String hello(){
+        return messageSource.getMessage("hello.message", null, LocaleContextHolder.getLocale());
+    }
 }
